@@ -75,6 +75,72 @@ void exec_div(Machine* machine) {
 	incrementInstruction(machine);
 }
 
+void exec_and(Machine* machine) {
+	Instruction* instruction = machine->currentInstruction;
+
+	int r1 = machine->registers[instruction->args[0]->value];
+	int r2 = machine->registers[instruction->args[1]->value];
+
+	machine->registers[instruction->args[2]->value] = r1 & r2;
+
+	incrementInstruction(machine);
+}
+
+void exec_or(Machine* machine) {
+	Instruction* instruction = machine->currentInstruction;
+
+	int r1 = machine->registers[instruction->args[0]->value];
+	int r2 = machine->registers[instruction->args[1]->value];
+
+	machine->registers[instruction->args[2]->value] = r1 | r2;
+
+	incrementInstruction(machine);
+}
+
+void exec_xor(Machine* machine) {
+	Instruction* instruction = machine->currentInstruction;
+
+	int r1 = machine->registers[instruction->args[0]->value];
+	int r2 = machine->registers[instruction->args[1]->value];
+
+	machine->registers[instruction->args[2]->value] = r1 ^ r2;
+
+	incrementInstruction(machine);
+}
+
+void exec_andi(Machine* machine) {
+	Instruction* instruction = machine->currentInstruction;
+
+	int r1 = machine->registers[instruction->args[0]->value];
+	int c1 = instruction->args[1]->value;
+
+	machine->registers[instruction->args[2]->value] = r1 & c1;
+
+	incrementInstruction(machine);
+}
+
+void exec_ori(Machine* machine) {
+	Instruction* instruction = machine->currentInstruction;
+
+	int r1 = machine->registers[instruction->args[0]->value];
+	int c1 = instruction->args[1]->value;
+
+	machine->registers[instruction->args[2]->value] = r1 | c1;
+
+	incrementInstruction(machine);
+}
+
+void exec_xori(Machine* machine) {
+	Instruction* instruction = machine->currentInstruction;
+
+	int r1 = machine->registers[instruction->args[0]->value];
+	int c1 = instruction->args[1]->value;
+
+	machine->registers[instruction->args[2]->value] = r1 ^ c1;
+
+	incrementInstruction(machine);
+}
+
 void exec_addi(Machine* machine) {
 	Instruction* instruction = machine->currentInstruction;
 
@@ -241,6 +307,26 @@ void exec_store(Machine* machine) {
 	incrementInstruction(machine);
 }
 
+void exec_i2i(Machine* machine) {
+	Instruction* instruction = machine->currentInstruction;
+
+	int r1 = machine->registers[instruction->args[0]->value];
+	
+	machine->registers[instruction->args[1]->value] = r1;
+
+	incrementInstruction(machine);
+}
+
+void exec_c2c(Machine* machine) {
+	Instruction* instruction = machine->currentInstruction;
+
+	int r1 = machine->registers[instruction->args[0]->value];
+	
+	machine->registers[instruction->args[1]->value] = (r1 & 0xFF);
+
+	incrementInstruction(machine);
+}
+
 void exec_storeAI(Machine* machine) {
 	Instruction* instruction = machine->currentInstruction;
 
@@ -286,7 +372,7 @@ void exec_outputAI(Machine* machine) {
 	incrementInstruction(machine);
 }
 
-#define NUM_INSTRUCTIONS 24
+#define NUM_INSTRUCTIONS 34
 CPUInstruction AllInstructions[NUM_INSTRUCTIONS] = {
 	{NOP, "nop", "", 1, exec_nop},
 	
@@ -294,12 +380,24 @@ CPUInstruction AllInstructions[NUM_INSTRUCTIONS] = {
 	{SUB, "sub", "rr>r", 1, exec_sub},
 	{MULT, "mult", "rr>r", 1, exec_mult},
 	{DIV, "div", "rr>r", 1, exec_div},
-	{ADDI, "addi", "rc>r", 1, exec_addi},
-	{SUBI, "subi", "rc>r", 1, exec_subi},
-	{RSUBI, "rsubi", "rc>r", 1, exec_rsubi},
-	{MULTI, "multi", "rc>r", 1, exec_multi},
-	{DIVI, "divi", "rc>r", 1, exec_divi},
-	{RDIVI, "rdivi", "rc>r", 1, exec_rdivi},
+	{ADDI, "addI", "rc>r", 1, exec_addi},
+	{SUBI, "subI", "rc>r", 1, exec_subi},
+	{RSUBI, "rsubI", "rc>r", 1, exec_rsubi},
+	{MULTI, "multI", "rc>r", 1, exec_multi},
+	{DIVI, "divI", "rc>r", 1, exec_divi},
+	{RDIVI, "rdivI", "rc>r", 1, exec_rdivi},
+
+	{AND, "and", "rr>r", 1, exec_and},
+	{OR, "or", "rr>r", 1, exec_or},
+	{XOR, "xor", "rr>r", 1, exec_xor},
+	{ANDI, "andI", "rc>r", 1, exec_andi},
+	{ORI, "orI", "rc>r", 1, exec_ori},
+	{XORI, "xorI", "rc>r", 1, exec_xori},
+
+	{I2I, "i2i", "r>r", 1, exec_i2i},
+	{C2C, "c2c", "r>r", 1, exec_c2c},
+	{I2C, "i2c", "r>r", 1, exec_c2c},
+	{C2I, "c2i", "r>r", 1, exec_c2c},
 
 	{LOAD, "load", "r>r", 1, exec_load},
 	{LOADI, "loadI", "c>r", 1, exec_loadI},
