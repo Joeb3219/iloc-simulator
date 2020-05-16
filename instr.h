@@ -5,14 +5,16 @@
 	#define INSTR_OUTPUT 	0
 	#define INSTR_REG 		1
 	#define INSTR_VALUE 	0
+	#define INSTR_NONE		-1
 
 	enum InstrType{
+		NOP,
 		OUTPUTI, OUTPUTAI, OUTPUT,
-		LOADI, LOADAI, LOAD,
-		STOREI, STOREAI, STORE,
+		LOADI, LOADAI, LOAD, LOADAO,
+		STOREI, STOREAI, STORE, STOREAO,
 		ADD, MULT, DIV, SUB,
-		ADDI, MULTI, DIVI, SUBI,
-		LSHIFT, RSHIFT,
+		ADDI, MULTI, DIVI, SUBI, RDIVI, RSUBI,
+		LSHIFT, RSHIFT, LSHIFTI, RSHIFTI,
 		ERROR
 	};
 
@@ -40,8 +42,6 @@
 	// Function declarations
 	InstrArg* createInstrArg();
 	void destroyInstrArg(InstrArg* arg);
-	char* typeToStr(InstrType type);
-	InstrType strToType(char* str);
 	void decodeInstruction(char* line, Instruction* instr);
 	void printInstruction(FILE* file, Instruction* instr);
 	Instruction* createInstruction();

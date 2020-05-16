@@ -4,6 +4,7 @@
 	typedef struct Arguments {
 		int numRegisters;
 		char* fileName;
+		int memSize;
 	} Arguments;
 
 #endif

@@ -3,6 +3,7 @@
 #include <string.h>
 #include "instr.h"
 #include "iloc.h"
+#include "simulator.h"
 
 Instruction* createInstruction(){
 	Instruction* instr = malloc(sizeof(Instruction));
@@ -173,55 +174,6 @@ void printInstruction(FILE* file, Instruction* instr){
 	}
 	
 	fprintf(file, "\n");
-}
-
-char* typeToStr(InstrType type){
-	switch(type){
-		case OUTPUT: return "output";
-		case OUTPUTI: return "outputI";
-		case OUTPUTAI: return "outputAI";
-		case STOREAI: return "storeAI";
-		case STORE: return "store";
-		case STOREI: return "storeI";
-		case LOADAI: return "loadAI";
-		case LOADI: return "loadI";
-		case LOAD: return "load";
-		case MULT: return "mult";
-		case DIV: return "div";
-		case ADD: return "add";
-		case LSHIFT: return "lshift";
-		case RSHIFT: return "rshift";
-		case SUB: return "sub";
-		case MULTI: return "multI";
-		case DIVI: return "divI";
-		case ADDI: return "addI";
-		case SUBI: return "subI";
-		default: return "ERROR";
-	}
-}
-
-InstrType strToType(char* str){
-	if(str == NULL) return ERROR;
-	if(strcmp("output", str) == 0) return OUTPUT;
-	if(strcmp("outputI", str) == 0) return OUTPUTI;
-	if(strcmp("outputAI", str) == 0) return OUTPUTAI;
-	if(strcmp("storeI", str) == 0) return STOREI;
-	if(strcmp("store", str) == 0) return STORE;
-	if(strcmp("storeAI", str) == 0) return STOREAI;
-	if(strcmp("loadI", str) == 0) return LOADI;
-	if(strcmp("load", str) == 0) return LOAD;
-	if(strcmp("loadAI", str) == 0) return LOADAI;
-	if(strcmp("lshift", str) == 0) return LSHIFT;
-	if(strcmp("rshift", str) == 0) return RSHIFT;
-	if(strcmp("mult", str) == 0) return MULT;
-	if(strcmp("div", str) == 0) return DIV;
-	if(strcmp("add", str) == 0) return ADD;
-	if(strcmp("sub", str) == 0) return SUB;
-	if(strcmp("divI", str) == 0) return DIVI;
-	if(strcmp("multI", str) == 0) return MULTI;
-	if(strcmp("addI", str) == 0) return ADDI;
-	if(strcmp("subI", str) == 0) return SUBI;
-	return ERROR;
 }
 
 Instruction* getInstructions(char* fileName){

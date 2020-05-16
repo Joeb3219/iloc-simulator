@@ -27,6 +27,7 @@ void displayHelp(int argc, char** argv) {
 	printf("ILOC Simulator by Joseph A. Boyle\r\n");
 	printf("%s -f <fileName> <opts>\r\n", argv[0]);
 	printf("-r <num>: Set the number of registers available in the simulator to num. Defaults to 10,000.\r\n");
+	printf("-m <num>: Set the number of bytes available in the simulator to num. Defaults to 10,000.\r\n");
 }
 
 Arguments* loadArguments(int argc, char** argv) {
@@ -34,6 +35,7 @@ Arguments* loadArguments(int argc, char** argv) {
 
 	args->numRegisters = atoi(getArgOrDefault("-r", "10000"));
 	args->fileName = getArgOrDefault("-f", NULL);
+	args->memSize = atoi(getArgOrDefault("-m", "10000"));
 
 	return args;
 }

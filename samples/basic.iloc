@@ -8,3 +8,4 @@ add	r1, r2	=> r6
 add	r3, r6	=> r7
 storeAI	r7	=> r0, 4
 outputAI	r0, 4
+outputAI	r0, 4
